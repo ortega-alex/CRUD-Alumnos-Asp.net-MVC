@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CRUD_Alumnos.Models.Alumno>
+﻿@model IEnumerable<CRUD_Alumnos.Models.AlumnoCE>
 
 @{
     ViewBag.Title = "Lista de Alumnos";
@@ -27,40 +27,57 @@
             @Html.DisplayNameFor(model => model.Sexo)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.NombreCiudad)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FechaRegisro)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreCompleto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Edad)
-        </td>
-        <td>
-            @{
-                if (item.Sexo == "M")
-                {
-                    <span>Masculino</span>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+            <td>
+                @{
+                    if (item.Sexo == "M")
+                    {
+                        <span>Masculino</span>
+                    }
+                    else
+                    {
+                        <span>Femenino</span>
+                    }
                 }
-                else
-                {
-                    <span>Femenino</span>
-                }
-            }
-        </td>
-        <td>
-            @item.FechaRegisro.ToShortDateString()
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCiudad)
+            </td>
+            <td>
+                @item.FechaRegisro.ToShortDateString()
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Editar", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Detalles", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Eliminar", new { id = item.Id }, new { @class = "aElinimar" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@section scripts{
+    <script>
+        $(".aElinimar").click(function (e) {
+            if (!confirm("Estas seguro de eliminar ?")) {
+                e.preventDefault();
+            }
+        })
+    </script>
+}
